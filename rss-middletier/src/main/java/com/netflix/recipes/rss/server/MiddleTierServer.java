@@ -51,17 +51,16 @@ public class MiddleTierServer extends BaseNettyServer {
 
     public void start() {
         logger.debug("Daemon start");
-        middleTierServer.start();
+        super.start();
     }
 
     public void stop() {
         logger.debug("Daemon stop");
-        middleTierServer.stop();
+        super.close();
     }
 
     public void destroy() {
         logger.debug("Daemon destroy");
-        middleTierServer.destroy();
     }
 	
 }

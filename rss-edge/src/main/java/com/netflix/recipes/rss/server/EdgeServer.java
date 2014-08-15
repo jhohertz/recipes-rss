@@ -63,17 +63,16 @@ public class EdgeServer extends BaseJettyServer {
 
     public void start() {
         logger.debug("Daemon start");
-		edgeServer.start();
+		super.start();
     }
 
     public void stop() {
         logger.debug("Daemon stop");
-		edgeServer.stop();
+		super.close();
     }
 
     public void destroy() {
         logger.debug("Daemon destroy");
-		edgeServer.destroy();
     }
 
 }
