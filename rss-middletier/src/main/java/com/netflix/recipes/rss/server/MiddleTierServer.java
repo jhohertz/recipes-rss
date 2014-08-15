@@ -25,42 +25,39 @@ import com.netflix.karyon.spi.PropertyNames;
  */
 public class MiddleTierServer extends BaseNettyServer {
 	private static final Logger logger = LoggerFactory.getLogger(MiddleTierServer.class);
-	private static MiddleTierServer middleTierServer;
+	private static MiddleTierServer middleTierServer = new MiddleTierServer();
 	
 	public MiddleTierServer() {
-    }
+        }
     
-    public static void main(String args[]) throws Exception {
-    	
-    	middleTierServer = new MiddleTierServer();
-       	middleTierServer.initialize();
-       	middleTierServer.start();
-    }
+        public static void main(String args[]) throws Exception {
+       	        middleTierServer.initialize();
+       	        middleTierServer.start();
+        }
     
 	private void initialize() {
-    	System.setProperty("archaius.deployment.applicationId", "middletier");
-    	System.setProperty(PropertyNames.SERVER_BOOTSTRAP_BASE_PACKAGES_OVERRIDE, "com.netflix");
+    	        System.setProperty("archaius.deployment.applicationId", "middletier");
+    	        System.setProperty(PropertyNames.SERVER_BOOTSTRAP_BASE_PACKAGES_OVERRIDE, "com.netflix");
 	}
 	
 	// commons daemon methods:
-    public void init(String[] arguments) throws Exception {
-        logger.debug("Daemon init");
-        middleTierServer = new MiddleTierServer();
-        middleTierServer.initialize();
-    }
+        public void init(String[] arguments) throws Exception {
+                logger.debug("Daemon init");
+                middleTierServer.initialize();
+        }
 
-    public void start() {
-        logger.debug("Daemon start");
-        super.start();
-    }
+        public void start() {
+                logger.debug("Daemon start");
+                super.start();
+        }
 
-    public void stop() {
-        logger.debug("Daemon stop");
-        super.close();
-    }
+        public void stop() {
+                logger.debug("Daemon stop");
+                super.close();
+        }
 
-    public void destroy() {
-        logger.debug("Daemon destroy");
-    }
+        public void destroy() {
+                logger.debug("Daemon destroy");
+        }
 	
 }

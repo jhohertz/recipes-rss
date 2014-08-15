@@ -28,13 +28,12 @@ import com.netflix.karyon.spi.PropertyNames;
  */
 public class EdgeServer extends BaseJettyServer {
 	private static final Logger logger = LoggerFactory.getLogger(EdgeServer.class);
-    private static EdgeServer edgeServer;
+        private static EdgeServer edgeServer = new EdgeServer();
 	
 	public EdgeServer() {
 	}
 	
 	public static void main(final String[] args) throws Exception {
-		edgeServer = new EdgeServer();
 		edgeServer.initialize();
 		edgeServer.start();
 	}
@@ -55,24 +54,23 @@ public class EdgeServer extends BaseJettyServer {
 	}
 	
 	// commons daemon methods:
-    public void init(String[] arguments) throws Exception {
-        logger.debug("Daemon init");
-		edgeServer = new EdgeServer();
+        public void init(String[] arguments) throws Exception {
+                logger.debug("Daemon init");
 		edgeServer.initialize();
-    }
+        }
 
-    public void start() {
-        logger.debug("Daemon start");
+        public void start() {
+                logger.debug("Daemon start");
 		super.start();
-    }
+        }
 
-    public void stop() {
-        logger.debug("Daemon stop");
+        public void stop() {
+                logger.debug("Daemon stop");
 		super.close();
-    }
+        }
 
-    public void destroy() {
-        logger.debug("Daemon destroy");
-    }
+        public void destroy() {
+                logger.debug("Daemon destroy");
+        }
 
 }
