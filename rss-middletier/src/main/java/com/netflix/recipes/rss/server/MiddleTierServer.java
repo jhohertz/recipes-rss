@@ -15,20 +15,53 @@
  */
 package com.netflix.recipes.rss.server;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.netflix.karyon.spi.PropertyNames;
 
 /**
  * @author Chris Fregly (chris@fregly.com)
  */
 public class MiddleTierServer extends BaseNettyServer {
-    public MiddleTierServer() {
+	private static final Logger logger = LoggerFactory.getLogger(MiddleTierServer.class);
+	private static MiddleTierServer middleTierServer;
+	
+	public MiddleTierServer() {
     }
     
     public static void main(String args[]) throws Exception {
+    	
+    	middleTierServer = new MiddleTierServer();
+       	middleTierServer.initialize();
+       	middleTierServer.start();
+    }
+    
+	private void initialize() {
     	System.setProperty("archaius.deployment.applicationId", "middletier");
     	System.setProperty(PropertyNames.SERVER_BOOTSTRAP_BASE_PACKAGES_OVERRIDE, "com.netflix");
-    	
-    	MiddleTierServer middleTierServer = new MiddleTierServer();
-    	middleTierServer.start();
+	}
+	
+	// commons daemon methods:
+    public void init(String[] arguments) throws Exception {
+        logger.debug("Daemon init");
+        middleTierServer = new MiddleTierServer();
+        middleTierServer.initialize();
     }
+
+    public void start() {
+        logger.debug("Daemon start");
+        middleTierServer.start();
+    }
+
+    public void stop() {
+        logger.debug("Daemon stop");
+        middleTierServer.stop();
+    }
+
+    public void destroy() {
+        logger.debug("Daemon destroy");
+        middleTierServer.destroy();
+    }
+	
 }

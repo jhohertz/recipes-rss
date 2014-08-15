@@ -27,13 +27,19 @@ import com.netflix.karyon.spi.PropertyNames;
  * @author Chris Fregly (chris@fregly.com)
  */
 public class EdgeServer extends BaseJettyServer {
-	private static final Logger logger = LoggerFactory
-			.getLogger(EdgeServer.class);
-
+	private static final Logger logger = LoggerFactory.getLogger(EdgeServer.class);
+    private static EdgeServer edgeServer;
+	
 	public EdgeServer() {
 	}
 	
 	public static void main(final String[] args) throws Exception {
+		edgeServer = new EdgeServer();
+		edgeServer.initialize();
+		edgeServer.start();
+	}
+	
+	private void initialize() {
 		System.setProperty("archaius.deployment.applicationId", "edge");
 		System.setProperty(PropertyNames.SERVER_BOOTSTRAP_BASE_PACKAGES_OVERRIDE, "com.netflix");
 
@@ -45,8 +51,29 @@ public class EdgeServer extends BaseJettyServer {
 		if (env != null) {
 			System.setProperty("eureka.environment", env);
 		}
-
-		EdgeServer edgeServer = new EdgeServer();
-		edgeServer.start();
+		
 	}
+	
+	// commons daemon methods:
+    public void init(String[] arguments) throws Exception {
+        logger.debug("Daemon init");
+		edgeServer = new EdgeServer();
+		edgeServer.initialize();
+    }
+
+    public void start() {
+        logger.debug("Daemon start");
+		edgeServer.start();
+    }
+
+    public void stop() {
+        logger.debug("Daemon stop");
+		edgeServer.stop();
+    }
+
+    public void destroy() {
+        logger.debug("Daemon destroy");
+		edgeServer.destroy();
+    }
+
 }

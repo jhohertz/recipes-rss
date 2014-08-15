@@ -23,6 +23,7 @@ apply from: file('gradle/release.gradle')
 
 subprojects {
     group = "com.netflix.${githubProjectName}" // TEMPLATE: Set to organization of project
+    apply plugin: 'eclipse'
 
     dependencies {
         compile 'org.slf4j:slf4j-api:1.7.2'
