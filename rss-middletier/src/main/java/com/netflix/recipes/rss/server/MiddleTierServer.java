@@ -28,22 +28,17 @@ public class MiddleTierServer extends BaseNettyServer {
 	private static MiddleTierServer middleTierServer = new MiddleTierServer();
 	
 	public MiddleTierServer() {
+    	        System.setProperty("archaius.deployment.applicationId", "middletier");
+    	        System.setProperty(PropertyNames.SERVER_BOOTSTRAP_BASE_PACKAGES_OVERRIDE, "com.netflix");
         }
     
         public static void main(String args[]) throws Exception {
-       	        middleTierServer.initialize();
        	        middleTierServer.start();
         }
     
-	private void initialize() {
-    	        System.setProperty("archaius.deployment.applicationId", "middletier");
-    	        System.setProperty(PropertyNames.SERVER_BOOTSTRAP_BASE_PACKAGES_OVERRIDE, "com.netflix");
-	}
-	
 	// commons daemon methods:
         public void init(String[] arguments) throws Exception {
                 logger.debug("Daemon init");
-                middleTierServer.initialize();
         }
 
         public void start() {

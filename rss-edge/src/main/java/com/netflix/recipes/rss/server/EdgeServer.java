@@ -31,14 +31,6 @@ public class EdgeServer extends BaseJettyServer {
         private static EdgeServer edgeServer = new EdgeServer();
 	
 	public EdgeServer() {
-	}
-	
-	public static void main(final String[] args) throws Exception {
-		edgeServer.initialize();
-		edgeServer.start();
-	}
-	
-	private void initialize() {
 		System.setProperty("archaius.deployment.applicationId", "edge");
 		System.setProperty(PropertyNames.SERVER_BOOTSTRAP_BASE_PACKAGES_OVERRIDE, "com.netflix");
 
@@ -50,13 +42,15 @@ public class EdgeServer extends BaseJettyServer {
 		if (env != null) {
 			System.setProperty("eureka.environment", env);
 		}
-		
+	}
+	
+	public static void main(final String[] args) throws Exception {
+		edgeServer.start();
 	}
 	
 	// commons daemon methods:
         public void init(String[] arguments) throws Exception {
                 logger.debug("Daemon init");
-		edgeServer.initialize();
         }
 
         public void start() {
